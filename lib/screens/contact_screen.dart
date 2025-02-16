@@ -103,7 +103,7 @@ class _ContactScreenState extends State<ContactScreen> {
         ? Center(
             child: Text(
               "No contacts available",
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
             ),
           )
         : SizedBox(

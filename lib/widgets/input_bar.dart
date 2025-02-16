@@ -23,6 +23,9 @@ class InputBar extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(8.0.h),
       child: TextFormField(
+        style: TextStyle(
+          fontSize: 16.sp
+        ),
         cursorColor: AppColorsLight.iconForegroundColorPhone,
         controller: controller,
         keyboardType: inputType,

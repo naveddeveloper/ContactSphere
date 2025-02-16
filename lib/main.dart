@@ -10,13 +10,16 @@ import 'package:provider/provider.dart';
 import 'package:contactsphere/providers/contact_provider.dart';
 
 void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (context) => ContactProvider()),
-      ChangeNotifierProvider(create: (context) => ThemeProvider())
-    ],
-    child: const ContactApp(),
-  ));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ContactProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: const ContactApp(),
+    ),
+  );
 }
 
 class ContactApp extends StatelessWidget {
@@ -24,12 +27,15 @@ class ContactApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ThemeProvider>(
-      builder: (context, themeProvider, child) {
-        return ScreenUtilInit(
-          designSize: const Size(375, 812),
-          builder: (context, child) {
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
             return MaterialApp(
+              title: 'ContactSphere',
               theme: lightTheme,
               darkTheme: darkTheme,
               themeMode: themeProvider.themeMode,
@@ -45,7 +51,6 @@ class ContactApp extends StatelessWidget {
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +86,10 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Brightness brightness = Theme.of(context).brightness;
-
+    final brightness = Theme.of(context).brightness;
     return Scaffold(
-      body: Consumer<ContactProvider>(
-        builder: (context, contactProvider, child) {
-          return _widgetOptions[_selectedIndex];
-        },
-      ),
+      body: _widgetOptions[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
-        
         selectedItemColor:
             brightness == Brightness.dark ? Colors.white : Colors.black,
         unselectedItemColor:
@@ -128,5 +127,4 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
-
 }

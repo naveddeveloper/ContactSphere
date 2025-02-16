@@ -102,11 +102,11 @@ class _ContactBarState extends State<ContactBar> {
                       child: widget.contacts.name.first.isNotEmpty
                           ? Text(
                               widget.contacts.displayName,
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
                             )
                           : Text(
                               "Unknown",
-                              style: Theme.of(context).textTheme.bodyMedium,
+                              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
                             ),
                     ),
                   ],
@@ -174,7 +174,7 @@ class _ContactBarState extends State<ContactBar> {
       padding: EdgeInsets.all(2.h),
       child: RawMaterialButton(
         onPressed: callback,
-        elevation: 2.0.sp,
+        elevation: 2.0,
         fillColor: brightness == Brightness.dark ? darkColor : lightColor,
         constraints: const BoxConstraints(minWidth: 0),
         padding: EdgeInsets.all(10.h),
@@ -183,7 +183,7 @@ class _ContactBarState extends State<ContactBar> {
         child: Icon(
           icon,
           color: brightness == Brightness.dark ? Colors.white : Colors.black,
-          size: 18.sp,
+          size: 18,
         ),
       ),
     );

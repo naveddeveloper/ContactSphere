@@ -120,7 +120,7 @@ If you have any suggestions, feel free to open an issue or contact me on [Instag
 
 ## Download the APK
 
-[![Download APK](https://img.shields.io/badge/Download-APK-blue?style=for-the-badge&logo=android)](https://github.com/naveddeveloper/ContactSphere/blob/main/contactsphere.apk)
+[![Download APK](https://img.shields.io/badge/Download-APK-blue?style=for-the-badge&logo=android)](http://drive.google.com/uc?id=1Mfw4bdPZYo3NsLhLBm5oL7CibrPPNaY6&export=download)
 
 ## ⚖️ License
 

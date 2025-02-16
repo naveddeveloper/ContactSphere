@@ -8,19 +8,18 @@ void showAppAndDeveloperInfoDialog(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(15.r),
         ),
         title: Row(
           children: [
             CircleAvatar(
               radius: 20.r,
-              backgroundImage:
-                  AssetImage("assets/img/splashicon.png"), // App Icon
+              backgroundImage: AssetImage("assets/img/splashicon.png"),
             ),
             SizedBox(width: 10.w),
             Text(
               'About ContactSphere',
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
             ),
           ],
         ),
@@ -34,7 +33,7 @@ void showAppAndDeveloperInfoDialog(BuildContext context) {
               // App Info Section
               Text(
                 'App Information',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 8.h),
               _infoRow(Icons.info, 'App Name: ContactSphere'),
@@ -46,7 +45,7 @@ void showAppAndDeveloperInfoDialog(BuildContext context) {
               // Developer Info Section
               Text(
                 'Developer Information',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
               SizedBox(height: 8.h),
               Center(
@@ -54,16 +53,14 @@ void showAppAndDeveloperInfoDialog(BuildContext context) {
                   children: [
                     CircleAvatar(
                       radius: 40.r,
+                      backgroundColor: Theme.of(context).primaryColor,
                       backgroundImage: NetworkImage(
                           "https://avatars.githubusercontent.com/u/118869302?v=4"),
                     ),
                     SizedBox(height: 10.h),
                     Text(
                       'Naved Developer',
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                      style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold),
                     ),
                     SizedBox(height: 4.h),
                     _infoRow(Icons.email, 'ansarinavedhabeeb@gmail.com'),
@@ -78,7 +75,10 @@ void showAppAndDeveloperInfoDialog(BuildContext context) {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            child: Text(
+              'Close',
+              style: TextStyle(fontSize: 16.sp),
+            ),
           ),
         ],
       );
@@ -91,7 +91,7 @@ Widget _infoRow(IconData icon, String text) {
     padding: EdgeInsets.symmetric(vertical: 4.h),
     child: Row(
       children: [
-        Icon(icon, size: 20.sp, color: AppColorsDark.iconBackgroundColorPhone),
+        Icon(icon, size: 20, color: AppColorsDark.iconBackgroundColorPhone),
         SizedBox(width: 8.w),
         Expanded(child: Text(text, style: TextStyle(fontSize: 14.sp))),
       ],

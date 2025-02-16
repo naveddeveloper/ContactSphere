@@ -40,10 +40,10 @@ class _SearchAppBarState extends State<SearchAppBar> {
                   controller: widget.textController,
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search,
-                        size: 24.sp, color: Theme.of(context).hintColor),
+                        size: 24, color: Theme.of(context).hintColor),
                     suffixIcon: IconButton(
                       icon: Icon(Icons.clear,
-                          size: 16.sp, color: Theme.of(context).hintColor),
+                          size: 16, color: Theme.of(context).hintColor),
                       onPressed: widget.textController.clear,
                     ),
                     hintText: "Search...",
@@ -51,13 +51,13 @@ class _SearchAppBarState extends State<SearchAppBar> {
                     filled: true,
                     fillColor: Theme.of(context).cardColor,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(12.r),
                       borderSide: BorderSide.none,
                     ),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 10.w, vertical: 15.h),
                   ),
-                  style: TextStyle(color: Theme.of(context).hintColor),
+                  style: TextStyle(color: Theme.of(context).hintColor, fontSize: 16.sp),
                 ),
               ),
             ),
@@ -92,7 +92,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
         shape: const CircleBorder(),
       ),
       child: IconButton(
-        icon: Icon(icon, size: 24.sp),
+        icon: Icon(icon, size: 24),
         color: Theme.of(context).brightness == Brightness.dark
             ? Colors.white
             : Colors.black,
@@ -115,8 +115,8 @@ class _SearchAppBarState extends State<SearchAppBar> {
         PopupMenuItem<int>(
             value: 1,
             child: _buildMenuItem("Sort By", Icons.arrow_forward_ios)),
-        PopupMenuItem<int>(value: 2, child: Text("Delete All Contacts", style: Theme.of(context).textTheme.bodyMedium,)),
-        PopupMenuItem<int>(value: 3, child: Text("About Developer", style: Theme.of(context).textTheme.bodyMedium,)),
+        PopupMenuItem<int>(value: 2, child: Text("Delete All Contacts", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500))),
+        PopupMenuItem<int>(value: 3, child: Text("About Developer", style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500))),
       ],
     );
 
@@ -178,7 +178,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget _buildMenuItem(String text, IconData? icon) {
     return Row(
       children: [
-        Text(text, style: Theme.of(context).textTheme.bodyMedium,),
+        Text(text, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
         if (icon != null) Icon(icon, size: 20),
       ],
     );
@@ -188,9 +188,9 @@ class _SearchAppBarState extends State<SearchAppBar> {
   Widget _buildSortItem(String text, bool isSelected) {
     return Row(
       children: [
-        isSelected ? Icon(Icons.check, size: 20) : SizedBox(width: 20),
-        SizedBox(width: 8),
-        Text(text, style: Theme.of(context).textTheme.bodyMedium),
+        isSelected ? Icon(Icons.check, size: 20) : SizedBox(width: 20.w),
+        SizedBox(width: 8.w),
+        Text(text, style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500)),
       ],
     );
   }

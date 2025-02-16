@@ -124,7 +124,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(
                         Icons.arrow_back,
-                        size: 30.sp,
+                        size: 30,
                         color: brightness == Brightness.dark
                             ? Colors.white
                             : Colors.black,
@@ -132,7 +132,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
                     ),
                     Text(
                       "Edit Contact",
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),
@@ -249,7 +249,7 @@ class _EditContactScreenState extends State<EditContactScreen> {
             : AppColorsLight.iconBackgroundColorPhone,
         child: Icon(
           Icons.save_as,
-          size: 30.sp,
+          size: 30,
           color: brightness == Brightness.dark
               ? AppColorsDark.iconForegroundColorPhone
               : AppColorsLight.iconForegroundColorPhone,

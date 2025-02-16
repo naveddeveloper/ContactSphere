@@ -1,3 +1,4 @@
+import 'package:contactsphere/styles/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -10,7 +11,7 @@ class CustomToast {
 
     overlay.insert(overlayEntry);
 
-    // Remove the toast after 3 seconds with fade out effect
+    // Remove the toast after 3 seconds with fade-out effect
     Future.delayed(Duration(seconds: 3), () {
       overlayEntry.remove();
     });
@@ -55,34 +56,23 @@ class _ToastWidgetState extends State<ToastWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 80,
-      left: MediaQuery.of(context).size.width * 0.15,
-      width: MediaQuery.of(context).size.width * 0.7,
+    return OverlayEntryWidget(
       child: FadeTransition(
         opacity: _opacityAnimation,
         child: Material(
           color: Colors.transparent,
           child: Container(
+            margin: EdgeInsets.only(bottom: 80.h),
             padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
             decoration: BoxDecoration(
-              color: Theme.of(context).brightness == Brightness.dark
-                  ? Colors.grey[800]?.withValues(alpha: 0.9)
-                  : Colors.black87.withValues(alpha: 0.3),
+              // Changed the color to green with opacity
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 5,
-                  spreadRadius: 2,
-                  offset: Offset(0, 3),
-                ),
-              ],
             ),
             child: Text(
               widget.message,
               style: TextStyle(
-                color: Colors.white,
+                color: AppColorsLight.iconForegroundColorPhone,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               ),
@@ -91,6 +81,21 @@ class _ToastWidgetState extends State<ToastWidget>
           ),
         ),
       ),
+    );
+  }
+}
+
+class OverlayEntryWidget extends StatelessWidget {
+  final Widget child;
+  const OverlayEntryWidget({super.key, required this.child});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 80,
+      left: MediaQuery.of(context).size.width * 0.15,
+      width: MediaQuery.of(context).size.width * 0.7,
+      child: child,
     );
   }
 }

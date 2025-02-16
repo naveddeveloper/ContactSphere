@@ -12,10 +12,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CardTile extends StatefulWidget {
   final Contact contacts;
 
-  const CardTile({
-    super.key,
-    required this.contacts,
-  });
+  const CardTile({Key? key, required this.contacts}) : super(key: key);
 
   @override
   State<CardTile> createState() => _CardTileState();
@@ -27,165 +24,97 @@ class _CardTileState extends State<CardTile> {
   @override
   void initState() {
     super.initState();
-    if (widget.contacts.photo != null && widget.contacts.photo!.isNotEmpty) {
-      setState(() {
-        avatarPhoto = widget.contacts.photo;
-      });
-    } else {
-      avatarPhoto = null;
-    }
+    avatarPhoto = (widget.contacts.photo != null && widget.contacts.photo!.isNotEmpty)
+        ? widget.contacts.photo
+        : null;
   }
 
   @override
   Widget build(BuildContext context) {
-    final Brightness brightness = Theme.of(context).brightness;
+    final brightness = Theme.of(context).brightness;
+    final cardColor = Theme.of(context).cardColor;
 
     return Padding(
-      padding: EdgeInsets.all(3.0.h),
-      child: RawMaterialButton(
-        onPressed: () {
-          Navigator.push(
+      padding: EdgeInsets.all(2.0.h),
+      child: Material(
+        color: cardColor,
+        borderRadius: BorderRadius.circular(20.r),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20.r),
+          onTap: () => Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ContactProfile(
-                  contact: widget.contacts), // Navigate to profile
+              builder: (context) => ContactProfile(contact: widget.contacts),
             ),
-          );
-        },
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-        fillColor: Theme.of(context).cardColor,
-        splashColor: brightness == Brightness.dark
-            ? const Color.fromARGB(255, 92, 91, 94)
-            : const Color.fromARGB(255, 197, 196, 198),
-        child: IntrinsicWidth(
+          ),
           child: Padding(
-            padding: EdgeInsets.all(8.0.h),
+            padding: EdgeInsets.all(12.0.h),
             child: Stack(
               children: [
-                // Star Icon
-                Align(
-                  alignment: Alignment.topRight,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Provider.of<ContactProvider>(context, listen: false)
-                          .toggleFavorite(widget.contacts);
-                    },
-                    fillColor: brightness == Brightness.dark
-                        ? Colors.grey
-                        : Colors.grey[800]!.withValues(alpha: 0.4),
-                    splashColor: brightness == Brightness.dark
-                        ? const Color.fromARGB(255, 92, 91, 94)
-                        : const Color.fromARGB(255, 197, 196, 198),
-                    constraints: const BoxConstraints(minWidth: 0),
-                    padding: EdgeInsets.all(8.0.h),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20.0.r)),
-                    child: Icon(
-                      Icons.star,
-                      size: 16.sp,
-                      color: brightness == Brightness.dark
-                          ? Colors.white
-                          : Colors.white24,
-                    ),
-                  ),
+                Positioned(
+                  top: 0,
+                  right: 0,
+                  child: _buildFavoriteButton(brightness),
                 ),
-                // Image and Name
                 Column(
-                  // Image
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Contact avatar
                     CircleAvatar(
                       radius: 30.r,
                       backgroundImage: avatarPhoto != null
                           ? MemoryImage(avatarPhoto!)
-                          : const AssetImage("assets/img/user.jpg")
-                              as ImageProvider,
-                      backgroundColor: Theme.of(context).cardColor,
+                          : const AssetImage("assets/img/user.jpg"),
+                      backgroundColor: cardColor,
                     ),
-
-                    // Name
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 4.0.h),
-                      child: widget.contacts.name.first.isNotEmpty
-                          ? Text(
-                              widget.contacts.displayName,
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            )
-                          : Text(
-                              "Unknown",
-                              style: Theme.of(context).textTheme.bodyLarge,
-                            ),
+                    SizedBox(height: 4.h),
+                    // Contact name
+                    Text(
+                      widget.contacts.name.first.isNotEmpty
+                          ? widget.contacts.displayName
+                          : "Unknown",
+                      style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500),
                     ),
-                    // Row Icons: phone, message, mail
+                    SizedBox(height: 8.h),
                     Row(
                       children: [
-                        // Phone Icon
-                        widget.contacts.phones.isNotEmpty
-                            ? _buildIcon(
-                                brightness,
-                                Icons.phone,
-                                AppColorsDark.iconBackgroundColorPhone,
-                                AppColorsLight.iconBackgroundColorPhone,
-                                () {
-                                  if (widget.contacts.phones.isNotEmpty) {
-                                    callPhone(
-                                        widget.contacts.phones.first.number);
-                                    CustomToast.show(context, "Opening Phone");
-                                  } else {
-                                    CustomToast.show(
-                                        context, "Your number is empty");
-                                  }
-                                },
-                              )
-                            : SizedBox(),
-
-                        // Message Icon
-                        widget.contacts.phones.isNotEmpty
-                            ? _buildIcon(
-                                brightness,
-                                Icons.message,
-                                AppColorsDark.iconBackgroundColorMessage,
-                                AppColorsLight.iconBackgroundColorMessage,
-                                () {
-                                  if (widget.contacts.phones.isNotEmpty) {
-                                    sendMessage(
-                                        widget.contacts.phones.first.number);
-                                    CustomToast.show(
-                                        context, "Opening Message");
-                                  } else {
-                                    CustomToast.show(
-                                        context, "Your number is empty");
-                                  }
-                                },
-                              )
-                            : SizedBox(),
-
-                        // Mail Icon                       
-                        widget.contacts.emails.isNotEmpty
-                            ? _buildIcon(
-                                brightness,
-                                Icons.mail,
-                                AppColorsDark.iconBackgroundColorMail,
-                                AppColorsLight.iconBackgroundColorMail,
-                                () {
-                                  if (widget.contacts.emails.isNotEmpty) {
-                                    sendEmail(
-                                        widget.contacts.emails.first.address);
-                                    CustomToast.show(
-                                        context, "Mail is opening");
-                                  } else {
-                                    CustomToast.show(
-                                        context, "Your emails is empty");
-                                  }
-                                },
-                              )
-                            : SizedBox(),
+                        if (widget.contacts.phones.isNotEmpty)
+                          _buildActionIcon(
+                            icon: Icons.phone,
+                            darkColor: AppColorsDark.iconBackgroundColorPhone,
+                            lightColor: AppColorsLight.iconBackgroundColorPhone,
+                            onPressed: () {
+                              callPhone(widget.contacts.phones.first.number);
+                              CustomToast.show(context, "Opening Phone");
+                            },
+                            brightness: brightness,
+                          ),
+                        if (widget.contacts.phones.isNotEmpty)
+                          _buildActionIcon(
+                            icon: Icons.message,
+                            darkColor: AppColorsDark.iconBackgroundColorMessage,
+                            lightColor: AppColorsLight.iconBackgroundColorMessage,
+                            onPressed: () {
+                              sendMessage(widget.contacts.phones.first.number);
+                              CustomToast.show(context, "Opening Message");
+                            },
+                            brightness: brightness,
+                          ),
+                        if (widget.contacts.emails.isNotEmpty)
+                          _buildActionIcon(
+                            icon: Icons.mail,
+                            darkColor: AppColorsDark.iconBackgroundColorMail,
+                            lightColor: AppColorsLight.iconBackgroundColorMail,
+                            onPressed: () {
+                              sendEmail(widget.contacts.emails.first.address);
+                              CustomToast.show(context, "Mail is opening");
+                            },
+                            brightness: brightness,
+                          ),
                       ],
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -194,22 +123,59 @@ class _CardTileState extends State<CardTile> {
     );
   }
 
-  Widget _buildIcon(Brightness brightness, IconData icon, Color darkColor,
-      Color lightColor, VoidCallback callback) {
+  // Builds the favorite button widget.
+  Widget _buildFavoriteButton(Brightness brightness) {
+    return Material(
+      color: brightness == Brightness.dark
+          ? Colors.grey
+          : Colors.grey.withOpacity(0.4),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.r),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20.r),
+        onTap: () {
+          Provider.of<ContactProvider>(context, listen: false)
+              .toggleFavorite(widget.contacts);
+        },
+        child: Padding(
+          padding: EdgeInsets.all(8.0.h),
+          child: Icon(
+            Icons.star,
+            size: 16.sp,
+            color:
+                brightness == Brightness.dark ? Colors.white : Colors.white24,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Builds a generic action icon widget.
+  Widget _buildActionIcon({
+    required IconData icon,
+    required Color darkColor,
+    required Color lightColor,
+    required VoidCallback onPressed,
+    required Brightness brightness,
+  }) {
     return Padding(
       padding: EdgeInsets.all(2.h),
-      child: RawMaterialButton(
-        onPressed: callback,
-        elevation: 2.0.sp,
-        fillColor: brightness == Brightness.dark ? darkColor : lightColor,
-        constraints: const BoxConstraints(minWidth: 0),
-        padding: EdgeInsets.all(10.h),
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      child: Material(
         shape: const CircleBorder(),
-        child: Icon(
-          icon,
-          color: brightness == Brightness.dark ? Colors.white : Colors.black,
-          size: 18.sp,
+        elevation: 2.0.sp,
+        color: brightness == Brightness.dark ? darkColor : lightColor,
+        child: InkWell(
+          customBorder: const CircleBorder(),
+          onTap: onPressed,
+          child: Padding(
+            padding: EdgeInsets.all(10.h),
+            child: Icon(
+              icon,
+              size: 18.sp,
+              color: brightness == Brightness.dark ? Colors.white : Colors.black,
+            ),
+          ),
         ),
       ),
     );

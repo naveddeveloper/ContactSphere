@@ -79,7 +79,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                     ),
                     Text(
                       "Add Contact",
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
                     ),
                   ],
                 ),

@@ -37,7 +37,7 @@ class _ContactProfileState extends State<ContactProfile> {
               widget.contact.name.first.isEmpty
                   ? "Unknown"
                   : widget.contact.displayName,
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
             ),
             centerTitle: true,
             backgroundColor: Theme.of(context).cardColor,
@@ -99,7 +99,7 @@ class _ContactProfileState extends State<ContactProfile> {
                     widget.contact.name.first.isEmpty
                         ? "Unknown"
                         : widget.contact.displayName,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w500),
                   ),
                 SizedBox(height: 3.h),
 
@@ -109,7 +109,7 @@ class _ContactProfileState extends State<ContactProfile> {
                         widget.contact.organizations.first.company.isNotEmpty
                             ? widget.contact.organizations.first.company
                             : "",
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColorsLight.notfocusedBar),
                       )
                     : SizedBox(),
                 SizedBox(height: 6.h),
@@ -118,7 +118,7 @@ class _ContactProfileState extends State<ContactProfile> {
                 widget.contact.phones.isNotEmpty
                     ? Text(
                         widget.contact.phones.first.number,
-                        style: Theme.of(context).textTheme.labelLarge,
+                        style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColorsLight.notfocusedBar),
                       )
                     : SizedBox(),
                 SizedBox(height: 8.h),
@@ -202,7 +202,7 @@ class _ContactProfileState extends State<ContactProfile> {
                 Container(
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(12.0.r),
                   ),
                   padding: EdgeInsets.all(16.0.h),
                   child: Column(
@@ -240,7 +240,7 @@ class _ContactProfileState extends State<ContactProfile> {
                                                 : widget.contact.emails.first
                                                     .address,
                                             "Email"),
-                                        const Divider(),
+                                         const Divider(color: AppColorsLight.notfocusedBar,),
                                       ],
                                     ),
                                   ),
@@ -290,7 +290,7 @@ class _ContactProfileState extends State<ContactProfile> {
                                                     : widget.contact.phones
                                                         .first.number,
                                             "Phone Number"),
-                                        const Divider(),
+                                        const Divider(color: AppColorsLight.notfocusedBar,),
                                       ],
                                     ),
                                   ),
@@ -321,7 +321,7 @@ class _ContactProfileState extends State<ContactProfile> {
                                                 : widget.contact.organizations
                                                     .first.company,
                                             "Company"),
-                                        const Divider(),
+                                         const Divider(color: AppColorsLight.notfocusedBar,),
                                       ],
                                     ),
                                   ),
@@ -362,7 +362,7 @@ class _ContactProfileState extends State<ContactProfile> {
                                                 : widget.contact.addresses.first
                                                     .address,
                                             "Address"),
-                                        const Divider(),
+                                         const Divider(color: AppColorsLight.notfocusedBar,)
                                       ],
                                     ),
                                   ),
@@ -404,7 +404,7 @@ class _ContactProfileState extends State<ContactProfile> {
                                                 : widget
                                                     .contact.websites.first.url,
                                             "Website"),
-                                        const Divider(),
+                                         const Divider(color: AppColorsLight.notfocusedBar,),
                                       ],
                                     ),
                                   ),
@@ -453,7 +453,7 @@ class _ContactProfileState extends State<ContactProfile> {
         children: [
           Row(
             children: [
-              Icon(icon, color: Theme.of(context).hintColor),
+              Icon(icon, color: Theme.of(context).hintColor, size: 20,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.0.w),
                 child: Text(
@@ -493,7 +493,7 @@ class _ContactProfileState extends State<ContactProfile> {
         child: Icon(
           icon,
           color: brightness == Brightness.dark ? Colors.white : Colors.black,
-          size: 24.sp,
+          size: 24,
         ),
       ),
     );

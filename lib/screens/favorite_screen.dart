@@ -24,7 +24,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint("State Initialization FavoriteScreen");
 
     searchController.addListener(() {
       _filterContacts(searchController.text);
@@ -125,10 +124,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           Column(
             children: [
               Text("Favorites Contacts",
-                  style: Theme.of(context).textTheme.headlineMedium),
+                  style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.w500)),
               Text(
                 '${favoritesList.length} Contacts',
-                style: Theme.of(context).textTheme.labelLarge,
+                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500, color: AppColorsLight.notfocusedBar),
               ),
             ],
           )
@@ -142,7 +141,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
     return favoritesList.isEmpty
         ? Center(
             child: Text("No contacts available",
-                style: Theme.of(context).textTheme.bodyLarge),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.w500)),
           )
         : SizedBox(
             child: GridView.builder(
